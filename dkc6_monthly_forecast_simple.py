@@ -149,24 +149,3 @@ full_series.to_csv(file_path, index=True)
 # COMMAND ----------
 
 print(full_series.head())
-
-# COMMAND ----------
-
-print(full_series.dtypes)
-
-# COMMAND ----------
-
-from pyspark.sql.types import StructType, StructField, FloatType
-
-# Define the schema for the Spark DataFrame
-schema = StructType([
-    StructField("column1", StringType()),
-    StructField("column2", FloatType()),
-    # Add more columns if needed
-])
-
-# Convert pandas DataFrame to Spark DataFrame with the specified schema
-spark_df = spark.createDataFrame(full_series, schema)
-
-# Write Spark DataFrame to Delta table
-spark_df.write.format("delta").mode("overwrite").saveAsTable("dkc6_monthly_forecast_table")
